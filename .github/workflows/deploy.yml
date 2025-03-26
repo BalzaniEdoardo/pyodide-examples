@@ -28,7 +28,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .  # or adjust this if your static site is in a subfolder
+          path: hello-world/  # or adjust this if your static site is in a subfolder
 
       - name: Deploy to GitHub Pages
         id: deployment
