@@ -1,0 +1,22 @@
+name: connect
+
+on:
+  workflow_dispatch:
+
+jobs:
+  connect:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up GitHub Pages
+        uses: actions/configure-pages@v4
+
+      - name: Setup tmate session (copy paste ssh command to connect to runner)   # Step to set up tmate session
+        uses: mxschmitt/action-tmate@v3   
