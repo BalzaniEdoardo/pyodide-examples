@@ -3,26 +3,33 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main  
+      - main
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
   deploy:
     if: github.ref == 'refs/heads/main'
-    permissions:
-      pages: write
-      id-token: write
-    
+    runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
 
-    runs-on: ubuntu-latest
     steps:
-      - name: Upload Artifact
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up GitHub Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .
-          
+          path: .  # or adjust this if your static site is in a subfolder
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
