@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages 
+name: Deploy to GitHub Pages
 
 on:
   push:
@@ -25,10 +25,15 @@ jobs:
       - name: Set up GitHub Pages
         uses: actions/configure-pages@v4
 
+      - name: Build hello_world.zip
+        run: |
+          cd hello-world
+          zip -r ../hello_world.zip hello_world
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: hello-world/  # or adjust this if your static site is in a subfolder
+          path: .  # uploads everything in the repo root, including index.html and hello_world.zip
 
       - name: Deploy to GitHub Pages
         id: deployment
